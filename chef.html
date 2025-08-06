@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Chef Saadat Sadique — Profile</title>
+<style>
+  :root{
+    --accent:#0b72b9;
+    --card-bg:#fff;
+    --page-bg:#f6fbff;
+    --muted:#555;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background:var(--page-bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:20px;
+  }
+
+  .card{
+    width:380px;
+    background:var(--card-bg);
+    border-radius:14px;
+    box-shadow:0 10px 30px rgba(15,25,40,0.08);
+    padding:20px;
+    text-align:center;
+  }
+
+  .photo{
+    width:140px; height:140px;
+    margin:0 auto 14px;
+    border-radius:50%;
+    overflow:hidden;
+    border:4px solid #fff;
+    box-shadow:0 6px 18px rgba(11,114,185,0.12);
+  }
+  .photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  h1{ margin:6px 0 6px; font-size:20px; color:var(--accent); }
+  .subtitle{ margin:0 0 10px; font-size:13px; color:var(--muted); }
+
+  p.bio{ font-size:14px; color:#333; line-height:1.45; margin:0 0 12px; }
+
+  .employ-note{
+    font-size:13px; color:#444; background:#fff6f0;
+    padding:8px 10px; border-radius:8px; margin:10px 0 12px;
+  }
+
+  .btn{ display:inline-block; background:var(--accent); color:#fff; padding:8px 12px; border-radius:8px; border:none; cursor:pointer; font-size:14px; margin-bottom:10px; }
+  .btn:hover{ filter:brightness(.95); }
+
+  .dish-title{ font-weight:700; margin-top:12px; color:#222; font-size:15px; }
+  ul.dishes{ list-style:none; padding:0; margin:10px 0 0; text-align:left; }
+  ul.dishes li{ padding:8px 10px; margin:8px 0; background:#eaf8ff; border-radius:8px; cursor:pointer; color:#033a57; font-weight:600; }
+  ul.dishes li:hover{ transform:translateY(-3px); transition:all .12s ease; }
+
+  /* modal */
+  .modal-backdrop{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.45); z-index:60; padding:18px; }
+  .modal{ width:100%; max-width:520px; background:#fff; border-radius:12px; padding:18px; box-shadow:0 12px 40px rgba(10,20,40,0.2); text-align:left; }
+  .modal h3{ margin:0 0 8px; color:var(--accent); }
+  .modal p{ margin:0 0 12px; color:#333; }
+  .modal .close{ display:inline-block; background:#eee; border-radius:8px; padding:6px 10px; cursor:pointer; }
+  .credits{ font-size:12px; color:var(--muted); margin-top:12px; text-align:left; }
+</style>
+</head>
+<body>
+
+  <div class="card" role="region" aria-label="Chef Saadat Sadique profile">
+    <div class="photo" id="photo">
+      <!-- Replace the src below with a real image URL (hosted online or local path) -->
+      <img src="https://cdn-food.tribune.com.pk/users/chef/k2YIJGlk9LjL7MqE9tciIiIzK8NrxQB3NrbyjjlC.jpeg" alt="Chef Saadat Sadique">
+    </div>
+
+    <h1>Chef Saadat Sadique</h1>
+    <div class="subtitle">Lahore — TV & Recipe Author (tribute)</div>
+
+    <p class="bio" id="bio">
+      Chef Saadat Sadique is known for blending classic Pakistani flavors with simple, approachable methods that home cooks can follow.
+      He has appeared on local cooking shows and taught practical recipes for everyday cooking.
+    </p>
+
+    <!-- Editable restaurant line: change the text inside <strong>...</strong> to your restaurant name -->
+    <div class="employ-note">
+      <strong>Worked at:</strong> He worked at <strong id="My Restaurant"> My Restaurant</strong> for a short time.
+    </div>
+
+    <button class="btn" onclick="moreInfo()">More short info</button>
+
+    <div class="dish-title">A few famous dishes</div>
+    <ul class="dishes" id="dishList">
+      <li data-key="handi">Handi Biryani</li>
+      <li data-key="fish">Fish Tikka</li>
+      <li data-key="kachori">Qeemay Wali Kachori</li>
+      <li data-key="pulao">Masoor Pulao</li>
+      <li data-key="halwa">Karachi Halwa</li>
+    </ul>
+
+    <div class="credits">
+      Image: replace placeholder with a real photo URL. Edit restaurant name above if desired.
+    </div>
+  </div>
+
+  <!-- Modal for dish details -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">Dish name</h3>
+      <p id="modalDesc">Dish description will appear here.</p>
+      <div style="text-align:right;">
+        <button class="close" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Short dish descriptions
+  const dishes = {
+    handi: {
+      title: "Handi Biryani",
+      desc: "A rich layered rice dish cooked in a handi (deep pot) with spiced meat and aromatic rice — homely and flavorful."
+    },
+    fish: {
+      title: "Fish Tikka",
+      desc: "Chunks of fish marinated with spices and grilled or charred until smoky; served as starter or main with chutney."
+    },
+    kachori: {
+      title: "Qeemay Wali Kachori",
+      desc: "Crispy fried pastry stuffed with spiced minced meat (qeemah) — a popular snack, especially for breakfast or tea-time."
+    },
+    pulao: {
+      title: "Masoor Pulao",
+      desc: "Comforting lentil-and-rice pilaf, lightly spiced and often served with raita or pickles."
+    },
+    halwa: {
+      title: "Karachi Halwa",
+      desc: "A dense, chewy sweet with cardamom aroma and nuts — enjoyed as dessert or festive treat."
+    }
+  };
+
+  // dish click handler
+  document.getElementById('dishList').addEventListener('click', function(e){
+    const li = e.target.closest('li');
+    if(!li) return;
+    const key = li.getAttribute('data-key');
+    if(key && dishes[key]) openModal(dishes[key]);
+  });
+
+  function openModal(data){
+    document.getElementById('modalTitle').textContent = data.title;
+    document.getElementById('modalDesc').textContent = data.desc;
+    const m = document.getElementById('modal');
+    m.style.display = 'flex';
+  }
+  function closeModal(){ document.getElementById('modal').style.display = 'none'; }
+
+  // More info button
+  function moreInfo(){
+    const bio = document.getElementById('bio');
+    bio.textContent = "Trained in modern techniques while keeping traditional tastes; focuses on easy-to-follow recipes for home cooks.";
+  }
+
+  
+</script>
+
+</body>
+</html>

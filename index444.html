@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Restaurant</title>
+  <style>
+    /* ---------- Reset ---------- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      line-height: 1.4;
+      color: #2d3436;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ---------- Header ---------- */
+    header {
+      background: #c76828;
+      color: #fff;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .logo { font-size: 20px; font-weight: 700; }
+
+    nav {
+      flex: 1;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: inline-flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    nav ul li a {
+      font-weight: 700;
+      color: #fff;
+      padding: 6px 8px;
+      border-radius: 6px;
+      transition: background .18s, color .18s;
+    }
+
+    nav ul li a:hover { background: rgba(255,255,255,0.15); }
+
+    /* mobile toggle */
+    .menu-toggle {
+      display: none;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 6px;
+    }
+
+    /* ---------- Home Section ---------- */
+    .home-section {
+      background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+      height: calc(100vh - 60px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+
+    .home-overlay {
+      background: rgba(0,0,0,0.55);
+      padding: 32px;
+      border-radius: 10px;
+      max-width: 880px;
+      width: 90%;
+    }
+
+    .home-overlay h1 { font-size: 40px; margin-bottom: 8px; }
+    .tagline { font-size: 18px; font-style: italic; margin-bottom: 16px; }
+    .home-buttons { margin: 16px 0; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .btn {
+      background: #fff;
+      color: #d35400;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+    .btn-alt {
+      background: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+    }
+    .intro { margin-top: 10px; font-size: 16px; }
+    .offer { margin-top: 12px; font-weight: 800; color: #ffeaa7; }
+
+    .contact-info { margin-top: 14px; font-size: 15px; }
+    .contact-info span { display: inline-block; margin: 6px 10px; }
+
+    /* blinking */
+    .blink { animation: blinkText 1s infinite; }
+    @keyframes blinkText { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ---------- Menu Box (hidden by default) ---------- */
+    .menu-section {
+      background: #fff3e0;
+      overflow: hidden;
+      transition: max-height .45s ease, opacity .45s ease, padding .45s ease;
+      max-height: 0;
+      opacity: 0;
+    }
+
+    .menu-section.show {
+      max-height: 2000px; /* large enough to reveal content */
+      opacity: 1;
+      padding: 40px 20px;
+    }
+
+    .menu-section h2 {
+      text-align: center;
+      color: #d35400;
+      font-size: 32px;
+      margin-bottom: 22px;
+    }
+
+    .menu-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 14px;
+    }
+
+    .menu-item {
+      background: #a98282;
+      padding: 14px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      font-weight: 600;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      transition: transform .15s, box-shadow .15s;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+    .menu-item:hover { transform: translateY(-6px); box-shadow: 0 10px 18px rgba(0,0,0,0.12); }
+
+    /* ---------- Footer / small sections ---------- */
+    section.short { padding: 28px 18px; text-align:center; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 880px) {
+      .home-overlay h1 { font-size: 32px; }
+      nav ul { gap: 14px; }
+    }
+
+    @media (max-width: 720px) {
+      nav { display: none; position: absolute; top:56px; left: 50%; transform: translateX(-50%); width: 90%; background: #d35400; border-radius:8px; padding:12px; }
+      nav ul { display:flex; flex-direction: column; gap:12px; align-items:center; }
+      .menu-toggle { display: block; color: #fff; }
+      nav.show { display: block; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">🍽 My Restaurant</div>
+
+    <nav id="mainNav" aria-label="Primary navigation">
+      <ul>
+        <li><a href="#home" data-action="home">Home</a></li>
+        <li><a href="#" id="menuLink" data-action="menu">Menu</a></li>
+        <li><a href="chef.html" target="_blank">Chef</a></li>
+        <li><a href="about.html" target="_blank"="about">About</a></li>
+        <li><a href="contact.html" target="_blank">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="menu-toggle" id="menuToggleBtn" aria-label="Open menu" title="Open menu">☰</div>
+  </header>
+
+  <!-- HOME -->
+  <section id="home" class="home-section">
+    <div class="home-overlay">
+      <h1>🍽 My Restaurant</h1>
+      <div class="tagline">Fresh. Tasty. Local.</div>
+
+      <div class="home-buttons">
+        <a href="#menu" id="viewMenuBtn" class="btn">View Menu</a>
+        <a href="#" id="orderNowBtn" class="btn btn-alt">Order Now</a>
+      </div>
+
+      <p class="intro">Serving Bahawalpur for 8 years — blending tradition with taste. Fresh ingredients, amazing flavors, unforgettable moments.</p>
+
+      <div id="specialOffer" class="offer">🚚 Free Home Delivery on Orders Above Rs. 1,000</div>
+
+      <div class="contact-info">
+        <span>📍 123 Main Street, Bahawalpur</span>
+        <span>📞 <a href="tel:03001234567">0300-1234567</a></span>
+        <span>⏰ 12:00 PM – 11:00 PM</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU BOX (hidden until Menu clicked) -->
+  <section id="menuBox" class="menu-section" aria-hidden="true">
+    <h2>Our Menu</h2>
+    <div class="menu-container">
+      <div class="menu-item">🍕 Margherita Pizza — Rs. 800</div>
+      <div class="menu-item">🍔 Beef Burger — Rs. 650</div>
+      <div class="menu-item">🍝 Spaghetti Bolognese — Rs. 750</div>
+      <div class="menu-item">🥗 Greek Salad — Rs. 500</div>
+      <div class="menu-item">🍗 Grilled Chicken — Rs. 900</div>
+      <div class="menu-item">🍛 Chicken Biryani — Rs. 450</div>
+      <div class="menu-item">🍤 Fried Prawns — Rs. 1,200</div>
+      <div class="menu-item">🥩 Beef Steak — Rs. 1,500</div>
+      <div class="menu-item">🍲 Chicken Soup — Rs. 300</div>
+      <div class="menu-item">🍣 Sushi Platter — Rs. 1,800</div>
+      <div class="menu-item">🍟 French Fries — Rs. 250</div>
+      <div class="menu-item">🥪 Club Sandwich — Rs. 400</div>
+      <div class="menu-item">🥞 Pancakes — Rs. 350</div>
+      <div class="menu-item">🍨 Ice Cream Sundae — Rs. 300</div>
+      <div class="menu-item">☕ Cappuccino — Rs. 250</div>
+    </div>
+  </section>
+
+  <!-- small placeholder sections -->
+  
+  <script>
+    /* ---------- Elements ---------- */
+    const menuLink = document.getElementById('menuLink');
+    const menuBox = document.getElementById('menuBox');
+    const viewMenuBtn = document.getElementById('viewMenuBtn');
+    const orderNowBtn = document.getElementById('orderNowBtn');
+    const specialOffer = document.getElementById('specialOffer');
+    const mainNav = document.getElementById('mainNav');
+    const menuToggleBtn = document.getElementById('menuToggleBtn');
+
+    /* Toggle menu box visibility */
+    function toggleMenuBox() {
+      const showing = menuBox.classList.toggle('show');
+      menuBox.setAttribute('aria-hidden', !showing);
+      // If opened, scroll into view
+      if (showing) menuBox.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    menuLink.addEventListener('click', function(e){
+      e.preventDefault();
+      toggleMenuBox();
+      // on mobile, hide nav after clicking
+      if (window.innerWidth <= 720) mainNav.classList.remove('show');
+    });
+
+    // View Menu button inside home — open the menu box
+    viewMenuBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      if (!menuBox.classList.contains('show')) toggleMenuBox();
+      else menuBox.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Order Now button shows phone prompt
+    orderNowBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      const phone = '03001234567';
+      // show confirm then dial on devices that support tel links
+      if (confirm('Call us now for Free Home Delivery?\n' + phone)) {
+        window.location.href = 'tel:' + phone;
+      }
+    });
+
+    // Blink the special offer every 2 seconds
+    setInterval(() => specialOffer.classList.toggle('blink'), 2000);
+
+    // Smooth scrolling for internal anchors in nav (Home, Chef, About, Contact)
+    document.querySelectorAll('a[data-action]').forEach(a => {
+      const action = a.getAttribute('data-action');
+      a.addEventListener('click', function(e){
+        // If action is menu it's handled above
+        if (action === 'menu') return;
+        if (action === 'home') {
+          // top
+          e.preventDefault();
+          document.querySelector('#home').scrollIntoView({ behavior: 'smooth' });
+          if (window.innerWidth <= 720) mainNav.classList.remove('show');
+        } else {
+          // other sections with ids
+          const target = document.getElementById(action);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+            if (window.innerWidth <= 720) mainNav.classList.remove('show');
+          }
+        }
+      });
+    });
+
+    // Mobile nav toggle
+    menuToggleBtn.addEventListener('click', function(){
+      mainNav.classList.toggle('show');
+    });
+
+    // Close mobile nav when clicking outside (optional)
+    document.addEventListener('click', function(e){
+      if (window.innerWidth <= 720) {
+        const clickedInsideNav = mainNav.contains(e.target) || menuToggleBtn.contains(e.target);
+        if (!clickedInsideNav) mainNav.classList.remove('show');
+      }
+    });
+
+    // Small entrance animation for menu items
+    document.addEventListener('DOMContentLoaded', () => {
+      const items = document.querySelectorAll('.menu-item');
+      items.forEach((it, i) => {
+        it.style.opacity = 0;
+        it.style.transform = 'translateY(14px)';
+        setTimeout(() => {
+          it.style.transition = 'all .4s ease';
+          it.style.opacity = 1;
+          it.style.transform = 'translateY(0)';
+        }, 120 + i * 60);
+      });
+    });
+  </script>
+</body>
+</html>
+
