@@ -1,0 +1,40 @@
+1.basic access
+
+int[] numbers = {10, 20, 30, 40, 50};
+
+// Access first element
+System.out.println(numbers[0]); // Output: 10
+
+// Access third element
+System.out.println(numbers[2]); // Output: 30
+
+
+acess in 2D array
+
+int[][] matrix = {
+    {1, 2, 3},
+    {4, 5, 6}
+};
+
+System.out.println(matrix[1][2]); // Output: 6 (row 1, column 2)
+
+
+
+2.add array inside the array 
+
+Acess the inner array 
+
+int[][] arr = {
+    {1, 2, 3},   // index 0
+    {4, 5, 6},   // index 1
+    {7, 8, 9}    // index 2
+};
+
+// Access the entire second array (row 1)
+int[] secondArray = arr[1]; 
+
+// Print that inner array
+for (int num : secondArray) {
+    System.out.print(num + " "); // Output: 4 5 6
+}
+

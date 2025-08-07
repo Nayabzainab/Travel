@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #627381;
+  color: #49565c;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+header {
+  background-color: #6b5151;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: white;
+  text-align: center;
+  padding: 40px 0;
+}
+
+section {
+  padding: 20px;
+  margin: 20px;
+  background: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+h2 {
+  color: #508997;
+}
+
+.menu-item, .review {
+  padding: 10px;
+  border-bottom: 1px solid #ab699c;
+}
+
+button {
+  background-color: #605f75;
+  color: rgb(222, 152, 152);
+  padding: 10px 20px;
+  border: none;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input {
+  padding: 8px;
+  margin: 5px;
+  width: 200px;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  background-color: #333;
+  color: white;
+}
+
+
+.container {
+  display: flex;
+  gap: 20px;
+}
+
+/* Main content */
+.main-content {
+  flex: 3;
+}
+
+/* Side panel for features */
+.features-side {
+  flex: 1;
+  background-color: #ace3e9;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(120, 117, 117, 0.05);
+}
+
+.features-side h2 {
+  margin-bottom: 20px;
+  color: #5e4339;
+  text-align: center;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.feature img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.feature p {
+  font-size: 1rem;
+  color: #6e6b6b;
+}
+
+   { font-weight: bold;
+    color: #2d3436;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+
+
+
+
+
+
+    </style>
+
+    <h1> MY RESTURENT</h1>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpxby2oqB4OVpnL1fjwExS6qqg-52R7xtOvQ&s" alt="">
+    
+</header>
+
+  <section id="menu">
+    <h2>Our Menu</h2>
+    <div class="menu-item"> Tandori Pizza - Rs. 750</div>
+    <div class="menu-item"> Beef Burger - Rs. 550</div>
+    <div class="menu-item"> Greek Salad - Rs. 350</div>
+    <div class="menu-item">  cold coffe - Rs. 200 </div>
+  </section>
+
+  <section id="offers">
+    <h2>Special Offers</h2>
+    <p id="offerText">Click to see today's offer!</p>
+    <button onclick="showOffer()">Show Offer</button>
+  </section>
+
+  <section id="reservation">
+    <h2>Book a Table</h2>
+    <form onsubmit="reserve(event)">
+      <input type="text" placeholder="Your Name" required />
+      <input type="date" required />
+      <input type="time" required />
+      <button type="submit">Reserve Now</button>
+    </form>
+    
+  </section>
+
+  <section id="reviews">
+    <h2>Customer Reviews</h2>
+    <div class="review">🌟🌟🌟🌟🌟 - “Best food in town!” – Ali</div>
+    <div class="review">🌟🌟🌟🌟 - “Loved the ambiance.” – Sara</div>
+  </section>
+
+  <footer>
+    <p>📍 Bahawalpur | 📞 0300-0000000 | 📧 mykitchen@email.com</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+<section class="facility-section">
+  <h2>✨ Our Facilities</h2>
+
+  <div class="facility-grid">
+    <div class="facility-item">
+      <img src="https://static.vecteezy.com/system/resources/previews/000/426/401/non_2x/waiter-man-serving-food-in-the-restaurant-vector.jpg" alt="Delivery" width="180px" length="180px">
+      <h3>Fast food service</h3>
+    </div>
+    <div class="facility-item">
+      <img src="https://www.shutterstock.com/image-photo/businessman-using-smart-phone-while-260nw-2474483833.jpg" alt="Wi-Fi" width="180px" length="180px">
+      <h3>Free Wi-Fi</h3>
+    </div>
+    <div class="facility-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMkIOE53fF72H8zC-3HCwHc6BFphNnsr_Sug&s" alt="Environment" width="180px" length="180px">
+      <h3>Fresh Environment</h3>
+    </div>
+    <div class="facility-item">
+      <img src="https://media.istockphoto.com/id/905278530/photo/modern-children-playground-indoor.jpg?s=612x612&w=0&k=20&c=Nuw_ji8Qf2jqUleA2UpI_InEg8fJPYiOb0CCVTJjsi4=" alt="Play Area" width="180px" length="180px">
+      <h3>Children Play Area</h3>
+    </div>
+    
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+<div class="container">
+
+  
+  <!-- LEFT SIDE PANEL: Delivery Info -->
+  <aside class="left-panel">
+    <h2>🚚 Fast Home Delivery</h2>
+    <p>Call us now and get your food delivered fresh & hot!</p>
+    <p><strong>📞 0300-1234567</strong></p>
+    <p><strong>⏰ Available:</strong> 12:00 PM - 12:00 AM</p>
+  </aside>
+
+
+   <div class="container">
+  <main class="main-content">
+    <!-- Your main content like gallery, about us, etc. -->
+  </main>
+
+  
